@@ -1,0 +1,26 @@
+[project]
+name = "project1-naletov-artemii-dpo"
+version = "0.1.0"
+description = ""
+authors = [
+    {name = "Artyom Nalyotov",email = "whalewander@yandex.ru"}
+]
+readme = "README.md"
+requires-python = ">=3.12"
+dependencies = [
+]
+
+
+[tool.poetry]
+packages = [
+    { include = "labyrinth_game" },
+]
+
+
+[tool.poetry.scripts]
+project = "labyrinth_game.main:main"
+
+
+[build-system]
+requires = ["poetry-core>=2.0.0,<3.0.0"]
+build-backend = "poetry.core.masonry.api"
