@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
-import constants
-import player_actions
-import utils
+from . import constants
+from . import player_actions
+from . import utils
 
 game_state = {
     'player_inventory': [], # Инвентарь игрока
