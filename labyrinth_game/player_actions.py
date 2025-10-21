@@ -25,3 +25,15 @@ def move_player(game_state, direction):
         utils.describe_current_room(game_state)
     else:
         print("Нельзя пойти в этом направлении.")
+
+def take_item(game_state, item):
+    rooms = constants.ROOMS
+    
+    curr_room = game_state['current_room']
+    room_data = rooms[curr_room]
+    if item in room_data['items']:
+        game_state['player_inventory'].append(item)
+        room_data['items'].remove(item)
+        print("Вы подняли:", item)
+    else:
+        print("Такого предмета здесь нет.")
