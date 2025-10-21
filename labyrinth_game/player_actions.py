@@ -20,23 +20,24 @@ def move_player(game_state, direction):
     curr_room = game_state['current_room']
     room_data = rooms[curr_room]
     if direction in list(room_data['exits'].keys()):
-        curr_room = room_data['exits'][direction]
+        game_state['current_room'] = room_data['exits'][direction]
         game_state['steps_taken'] += 1
         utils.describe_current_room(game_state)
     else:
         print("Нельзя пойти в этом направлении.")
 
-def take_item(game_state, item):
+def take_item(game_state, item_name):
     rooms = constants.ROOMS
     
     curr_room = game_state['current_room']
     room_data = rooms[curr_room]
-    if item in room_data['items']:
-        game_state['player_inventory'].append(item)
-        room_data['items'].remove(item)
-        print("Вы подняли:", item)
+    if item_name in room_data['items']:
+        game_state['player_inventory'].append(item_name)
+        room_data['items'].remove(item_name)
+        print("Вы подняли:", item_name)
     else:
         print("Такого предмета здесь нет.")
+
 def use_item(game_state, item_name):
     if item_name in game_state['player_inventory']:
         match item_name:
@@ -44,10 +45,10 @@ def use_item(game_state, item_name):
                 print("Здесь стало светлее..")
             case 'sword':
                 print("Чувствуете себя увереннее перед неизвестным.")
-            case 'bronze box':
+            case 'bronze_box':
                 print("Бронзовая шкатулка открыта.")
-                if 'rusty key' not in game_state['player_inventory']:
-                    game_state['player_inventory'].append('rusty key')
+                if 'rusty_key' not in game_state['player_inventory']:
+                    game_state['player_inventory'].append('rusty_key')
                 else:
                     print("Здесь пусто.")
             case _:
