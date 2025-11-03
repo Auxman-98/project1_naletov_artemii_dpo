@@ -51,18 +51,19 @@ def attempt_open_treasure(game_state):
         game_state['game_over'] = True
     else:
         print("Сундук заперт. ... Ввести код (да/нет)?")
-        if player_actions.get_input() == "нет":
-            print("Вы отступаете от сундука.")
-        elif player_actions.get_input() == "да":
-            print(puzzle[0])
-            if player_actions.get_input() != puzzle[1]:
-                print("Неверно. Попробуйте снова.")
-            else:
-                print("Замок щёлкает. Сундук открыт!")
-                constants.ROOMS[curr_room]['puzzle'] = None
-                room_data['items'].remove('treasure_chest')
-                print("В сундуке сокровище! Вы победили!")
-                game_state['game_over'] = True
+        match player_actions.get_input():
+            case "нет":
+                print("Вы отступаете от сундука.")
+            case "да":
+                print(puzzle[0])
+                if player_actions.get_input() != puzzle[1]:
+                    print("Неверно. Попробуйте снова.")
+                else:
+                    print("Замок щёлкает. Сундук открыт!")
+                    constants.ROOMS[curr_room]['puzzle'] = None
+                    room_data['items'].remove('treasure_chest')
+                    print("В сундуке сокровище! Вы победили!")
+                    game_state['game_over'] = True
 
 def show_help():
     print("\nДоступные команды:")
