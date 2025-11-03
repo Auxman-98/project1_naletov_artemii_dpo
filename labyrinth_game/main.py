@@ -33,6 +33,8 @@ def process_command(game_state, command):
                     utils.solve_puzzle(game_state) 
             case 'quit':
                 exit()
+            case 'help':
+                utils.show_help()
 
 def main():
     print("Добро пожаловать в Лабиринт сокровищ!\n")
