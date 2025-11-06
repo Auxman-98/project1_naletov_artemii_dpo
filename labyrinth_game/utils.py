@@ -6,7 +6,7 @@ rooms = constants.ROOMS
 def describe_current_room(game_state):
     curr_room = game_state['current_room']
     room_data = rooms[curr_room]
-    
+
     print(f'== {curr_room.upper()} ==')
     print(f'{room_data["description"]}')
     print(f'\nЗаметные предметы: {room_data["items"]}')
@@ -17,7 +17,7 @@ def describe_current_room(game_state):
 def solve_puzzle(game_state):
     curr_room = game_state['current_room']
     room_data = rooms[curr_room]
-    
+
     if room_data['puzzle'] is None:
         print("Загадок здесь нет.")
     else:

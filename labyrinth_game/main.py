@@ -1,5 +1,4 @@
 #!/usr/bin/env python3
-from . import constants
 from . import player_actions
 from . import utils
 
@@ -30,7 +29,7 @@ def process_command(game_state, command):
                 if game_state['current_room'] == 'treasure_room':
                     utils.attempt_open_treasure(game_state)
                 else:
-                    utils.solve_puzzle(game_state) 
+                    utils.solve_puzzle(game_state)
             case 'quit':
                 exit()
             case 'help':
@@ -39,7 +38,7 @@ def process_command(game_state, command):
 def main():
     print("Добро пожаловать в Лабиринт сокровищ!\n")
     utils.describe_current_room(game_state)
-    
+
     while not game_state['game_over']:
         command = player_actions.get_input()
         process_command(game_state, command)
