@@ -1,4 +1,3 @@
-import math
 from . import constants
 from . import player_actions
 
@@ -7,7 +6,7 @@ rooms = constants.ROOMS
 def describe_current_room(game_state):
     curr_room = game_state['current_room']
     room_data = rooms[curr_room]
-    
+
     print(f'== {curr_room.upper()} ==')
     print(f'{room_data["description"]}')
     print(f'\nЗаметные предметы: {room_data["items"]}')
@@ -18,7 +17,7 @@ def describe_current_room(game_state):
 def solve_puzzle(game_state):
     curr_room = game_state['current_room']
     room_data = rooms[curr_room]
-    
+
     if room_data['puzzle'] is None:
         print("Загадок здесь нет.")
     else:
@@ -65,15 +64,6 @@ def attempt_open_treasure(game_state):
                     room_data['items'].remove('treasure_chest')
                     print("В сундуке сокровище! Вы победили!")
                     game_state['game_over'] = True
-
-def pseudo_random(seed, modulo):
-    x = math.sin(seed*13.9876)
-    x *= 51062.7241
-    x -= math.floor(x)
-    x *= modulo
-    x = math.floor(x)
-
-    return x
 
 def show_help():
     print("\nДоступные команды:")

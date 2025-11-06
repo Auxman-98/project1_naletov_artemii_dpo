@@ -16,7 +16,7 @@ def get_input(prompt="> "):
 
 def move_player(game_state, direction):
     rooms = constants.ROOMS
-    
+
     curr_room = game_state['current_room']
     room_data = rooms[curr_room]
     if direction in list(room_data['exits'].keys()):
@@ -28,7 +28,7 @@ def move_player(game_state, direction):
 
 def take_item(game_state, item_name):
     rooms = constants.ROOMS
-    
+
     curr_room = game_state['current_room']
     room_data = rooms[curr_room]
     if item_name in room_data['items']:
