@@ -1,3 +1,4 @@
+import math
 from . import constants
 from . import player_actions
 
@@ -64,6 +65,15 @@ def attempt_open_treasure(game_state):
                     room_data['items'].remove('treasure_chest')
                     print("В сундуке сокровище! Вы победили!")
                     game_state['game_over'] = True
+
+def pseudo_random(seed, modulo):
+    x = math.sin(seed*13.9876)
+    x *= 51062.7241
+    x -= math.floor(x)
+    x *= modulo
+    x = math.floor(x)
+
+    return x
 
 def show_help():
     print("\nДоступные команды:")
