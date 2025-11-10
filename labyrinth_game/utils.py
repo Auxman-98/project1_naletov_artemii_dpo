@@ -65,6 +65,15 @@ def attempt_open_treasure(game_state):
                     print("В сундуке сокровище! Вы победили!")
                     game_state['game_over'] = True
 
+def pseudo_random(seed, modulo):
+    x = math.sin(seed*13.9876)
+    x *= 51062.7241
+    x -= math.floor(x)
+    x *= modulo
+    x = math.floor(x)
+
+    return x
+
 def show_help():
     print("\nДоступные команды:")
     print("  go <direction>  - перейти в направлении (north/south/east/west)")
