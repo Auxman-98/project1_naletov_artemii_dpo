@@ -74,6 +74,23 @@ def pseudo_random(seed, modulo):
 
     return x
 
+def trigger_trap(game_state):
+    print("Ловушка активирована! Пол стал дрожать...")
+
+    inventory = game_state['player_inventory']
+    steps = game_state['steps_taken']
+    if inventory:
+        num = pseudo_random(steps, len(inventory))
+        loss = game_state['player_inventory'].pop(num)
+        print(f"Вы потеряли {loss}")
+    else:
+        num = pseudo_random(steps, 7)
+        if num < 2:
+            print("Вы проиграли. Игра окончена.")
+            game_state['game_over'] = True
+        else:
+            print("Вы уцелели!")
+
 def show_help():
     print("\nДоступные команды:")
     print("  go <direction>  - перейти в направлении (north/south/east/west)")
