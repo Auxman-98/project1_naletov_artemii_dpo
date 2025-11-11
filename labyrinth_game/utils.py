@@ -1,3 +1,4 @@
+import math
 from . import constants
 from . import player_actions
 
@@ -66,11 +67,9 @@ def attempt_open_treasure(game_state):
                     game_state['game_over'] = True
 
 def pseudo_random(seed, modulo):
-    x = math.sin(seed*13.9876)
-    x *= 51062.7241
-    x -= math.floor(x)
-    x *= modulo
-    x = math.floor(x)
+    num_1 = abs(math.sin(seed*13.9876) * 51062.7241)
+    num_2 = (num_1 - math.floor(num_1)) * modulo
+    x = math.floor(num_2)
 
     return x
 
@@ -90,6 +89,25 @@ def trigger_trap(game_state):
             game_state['game_over'] = True
         else:
             print("Вы уцелели!")
+
+def random_event(game_state):
+    steps = game_state['steps_taken']
+    inventory = game_state['player_inventory']
+    curr_room = game_state['current_room']
+    num = pseudo_random(steps, 10)
+    if num == 0:
+        num_1 = pseudo_random(steps, 30)
+        match num_1:
+            case 0:
+                constants.ROOMS[curr_room]['items'].append('coin')
+                print("На полу выпала монетка.")
+            case 1:
+                print("Чу, слышен какой-то шорох!")
+                if 'sword' in inventory:
+                    print("Вы отпугнули существо.")
+            case 2:
+                if (curr_room == 'trap_room') & ('torch' not in inventory):
+                    trigger_trap(game_state)
 
 def show_help():
     print("\nДоступные команды:")
