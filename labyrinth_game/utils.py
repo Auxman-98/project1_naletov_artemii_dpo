@@ -24,19 +24,32 @@ def solve_puzzle(game_state):
     else:
         puzzle = room_data['puzzle']
         print(puzzle[0])
-        if player_actions.get_input() == puzzle[1]:
-            print("Правильно!")
-            constants.ROOMS[curr_room]['puzzle'] = None
-            match curr_room:
-                case 'trap_room' | 'library':
-                    game_state['player_inventory'].append('rusty_key')
-                case 'hall':
+        match curr_room:
+            case 'hall':
+                if ((player_actions.get_input() == puzzle[1])
+                    | (player_actions.get_input() == 'десять')):
+                    print("Правильно!")
+                    constants.ROOMS[curr_room]['puzzle'] = None
                     game_state['player_inventory'].append('treasure_key')
-            if 'rusty_key' in room_data['items']:
-                room_data['items'].remove('rusty_key')
-            print("Вы получили награду:", game_state['player_inventory'][-1])
-        else:
-            print("Неверно. Попробуйте снова.")
+                    print("Вы получили награду:", \
+                        game_state['player_inventory'][-1])
+                else:
+                    print("Неверно. Попробуйте снова.")
+            case _:
+                if player_actions.get_input() == puzzle[1]:
+                    print("Правильно!")
+                    constants.ROOMS[curr_room]['puzzle'] = None
+                    game_state['player_inventory'].append('rusty_key')
+                    if 'rusty_key' in room_data['items']:
+                        room_data['items'].remove('rusty_key')
+                    print("Вы получили награду:", \
+                        game_state['player_inventory'][-1])
+                else:
+                    match curr_room:
+                        case 'trap_room':
+                            trigger_trap(game_state)
+                        case _:
+                            print("Неверно. Попробуйте снова.")
 
 def attempt_open_treasure(game_state):
     curr_room = game_state['current_room']
