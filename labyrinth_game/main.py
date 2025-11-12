@@ -26,6 +26,8 @@ def process_command(game_state, command):
                 utils.describe_current_room(game_state)
             case 'inventory':
                 player_actions.show_inventory(game_state)
+            case 'north' | 'south' | 'east' | 'west':
+                player_actions.move_player(game_state, command)
             case 'solve':
                 if game_state['current_room'] == 'treasure_room':
                     utils.attempt_open_treasure(game_state)
