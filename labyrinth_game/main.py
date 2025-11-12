@@ -1,4 +1,5 @@
 #!/usr/bin/env python3
+from . import constants
 from . import player_actions
 from . import utils
 
@@ -33,7 +34,7 @@ def process_command(game_state, command):
             case 'quit':
                 exit()
             case 'help':
-                utils.show_help()
+                utils.show_help(constants.COMMANDS)
 
 def main():
     print("Добро пожаловать в Лабиринт сокровищ!\n")

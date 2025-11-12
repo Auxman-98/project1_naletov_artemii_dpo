@@ -122,8 +122,12 @@ def random_event(game_state):
                 if (curr_room == 'trap_room') & ('torch' not in inventory):
                     trigger_trap(game_state)
 
-def show_help():
+def show_help(COMMANDS):
     print("\nДоступные команды:")
+    for command in list(COMMANDS.keys()):
+        print(f"  {command.ljust(16)}{COMMANDS[command]}")
+    print()
+"""
     print("  go <direction>  - перейти в направлении (north/south/east/west)")
     print("  look            - осмотреть текущую комнату")
     print("  take <item>     - поднять предмет")
@@ -132,3 +136,4 @@ def show_help():
     print("  solve           - попытаться решить загадку в комнате")
     print("  quit            - выйти из игры")
     print("  help            - показать это сообщение")
+"""
