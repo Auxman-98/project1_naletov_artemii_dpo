@@ -12,14 +12,14 @@ game_state = {
 
 def process_command(game_state, command):
     if ' ' in command:
-        components = command.split()
-        match components[0]:
+        c_components = command.split()
+        match c_components[0]:
             case 'take':
-                player_actions.take_item(game_state, components[1])
+                player_actions.take_item(game_state, c_components[1])
             case 'use':
-                player_actions.use_item(game_state, components[1])
+                player_actions.use_item(game_state, c_components[1])
             case 'go':
-                player_actions.move_player(game_state, components[1])
+                player_actions.move_player(game_state, c_components[1])
     else:
         match command:
             case 'look':
