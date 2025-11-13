@@ -80,7 +80,10 @@ def attempt_open_treasure(game_state):
                     game_state['game_over'] = True
 
 def pseudo_random(seed, modulo):
-    num_1 = abs(math.sin(seed*13.9876) * 51062.7241)
+    SEED_FACTOR = 13.9876
+    SINE_FACTOR = 51062.7241
+
+    num_1 = abs(math.sin(seed*SEED_FACTOR) * SINE_FACTOR)
     num_2 = (num_1 - math.floor(num_1)) * modulo
     x = math.floor(num_2)
 
@@ -96,20 +99,27 @@ def trigger_trap(game_state):
         loss = game_state['player_inventory'].pop(num)
         print(f"Вы потеряли {loss}")
     else:
-        num = pseudo_random(steps, 7)
-        if num < 2:
+        WORST_CASE_CARDINALITY = 7
+        PIVOT = 2
+
+        num = pseudo_random(steps, WORST_CASE_CARDINALITY)
+        if num < PIVOT:
             print("Вы проиграли. Игра окончена.")
             game_state['game_over'] = True
         else:
             print("Вы уцелели!")
 
 def random_event(game_state):
+    CARDINALITY = 10
+    SUCCESS_FACTOR = 3
+    LUCKY_NUMBER = 0
+
     steps = game_state['steps_taken']
     inventory = game_state['player_inventory']
     curr_room = game_state['current_room']
-    num = pseudo_random(steps, 10)
-    if num == 0:
-        num_1 = pseudo_random(steps, 30)
+    num = pseudo_random(steps, CARDINALITY)
+    if num == LUCKY_NUMBER:
+        num_1 = pseudo_random(steps, CARDINALITY*SUCCESS_FACTOR)
         match num_1:
             case 0:
                 constants.ROOMS[curr_room]['items'].append('coin')
