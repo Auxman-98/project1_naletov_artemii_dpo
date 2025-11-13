@@ -53,7 +53,6 @@ def solve_puzzle(game_state):
 
 def attempt_open_treasure(game_state):
     curr_room = game_state['current_room']
-    global rooms
     room_data = rooms[curr_room]
     puzzle = room_data['puzzle']
 
@@ -83,9 +82,9 @@ def pseudo_random(seed, modulo):
     SEED_FACTOR = 13.9876
     SINE_FACTOR = 51062.7241
 
-    num_1 = abs(math.sin(seed*SEED_FACTOR) * SINE_FACTOR)
-    num_2 = (num_1 - math.floor(num_1)) * modulo
-    x = math.floor(num_2)
+    x = abs(math.sin(seed*SEED_FACTOR) * SINE_FACTOR)
+    x = (x - math.floor(x)) * modulo
+    x = math.floor(x)
 
     return x
 
@@ -95,15 +94,15 @@ def trigger_trap(game_state):
     inventory = game_state['player_inventory']
     steps = game_state['steps_taken']
     if inventory:
-        num = pseudo_random(steps, len(inventory))
-        loss = game_state['player_inventory'].pop(num)
+        rand_index = pseudo_random(steps, len(inventory))
+        loss = game_state['player_inventory'].pop(rand_index)
         print(f"Вы потеряли {loss}")
     else:
         WORST_CASE_CARDINALITY = 7
         PIVOT = 2
 
-        num = pseudo_random(steps, WORST_CASE_CARDINALITY)
-        if num < PIVOT:
+        critical_num = pseudo_random(steps, WORST_CASE_CARDINALITY)
+        if critical_num < PIVOT:
             print("Вы проиграли. Игра окончена.")
             game_state['game_over'] = True
         else:
@@ -117,10 +116,8 @@ def random_event(game_state):
     steps = game_state['steps_taken']
     inventory = game_state['player_inventory']
     curr_room = game_state['current_room']
-    num = pseudo_random(steps, CARDINALITY)
-    if num == LUCKY_NUMBER:
-        num_1 = pseudo_random(steps, CARDINALITY*SUCCESS_FACTOR)
-        match num_1:
+    if pseudo_random(steps, CARDINALITY) == LUCKY_NUMBER:
+        match pseudo_random(steps, CARDINALITY*SUCCESS_FACTOR):
             case 0:
                 constants.ROOMS[curr_room]['items'].append('coin')
                 print("На полу выпала монетка.")
@@ -137,13 +134,3 @@ def show_help(COMMANDS):
     for command in list(COMMANDS.keys()):
         print(f"  {command.ljust(16)}{COMMANDS[command]}")
     print()
-"""
-    print("  go <direction>  - перейти в направлении (north/south/east/west)")
-    print("  look            - осмотреть текущую комнату")
-    print("  take <item>     - поднять предмет")
-    print("  use <item>      - использовать предмет из инвентаря")
-    print("  inventory       - показать инвентарь")
-    print("  solve           - попытаться решить загадку в комнате")
-    print("  quit            - выйти из игры")
-    print("  help            - показать это сообщение")
-"""
