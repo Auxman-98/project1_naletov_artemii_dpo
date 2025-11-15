@@ -121,7 +121,10 @@ def use_item(game_state, item_name):
                 print("Бронзовая шкатулка открыта.")
                 if 'rusty_key' not in game_state['player_inventory']:
                     game_state['player_inventory'].append('rusty_key')
+                    print("Вы получили", game_state['player_inventory'][-1])
                 else:
                     print("Здесь пусто.")
             case _:
                 print(f"Вы не знаете, как использовать {item_name}")
+    else:
+        print("У вас нет такого предмета.")
