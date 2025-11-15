@@ -2,12 +2,32 @@ from . import constants
 from . import utils
 
 def show_inventory(game_state):
+    """
+    Показывает содержимое инвентаря игрока или выводит сообщение о том, что он
+    пуст.
+
+    Args:
+        game_state (dict): данные о состоянии игрока на данный момент.
+
+    Returns:
+        None: результат вычисления не возвращается из функции.
+    """
     if game_state['player_inventory'] != []:
         print(f"Инвентарь: {game_state['player_inventory']}")
     else:
         print("Ваш инвентарь пуст.")
 
 def get_input(prompt="> "):
+    """
+    Принимает команду, введённую игроком в консоль, и либо вызывает
+    соответствующую функцию, либо вызывает выход из игры.
+
+    Args:
+        prompt="> " (str): подсказка к вводу
+
+    Returns:
+        str: команда, введённая игроком (в случае выхода - 'quit').
+    """
     try:
         return input(prompt)
     except (KeyboardInterrupt, EOFError):
@@ -15,6 +35,17 @@ def get_input(prompt="> "):
         return "quit"
 
 def move_player(game_state, direction):
+    """
+    Выполняет перемещение игрока по комнатам в зависимости от состояния игрока
+    на данный момент и взятого направления.
+
+    Args:
+        game_state (dict): данные о состоянии игрока на данный момент.
+        direction (str): направление, в котором хочет пойти игрок.
+
+    Returns:
+        None: результат выполнения не возвращается из функции.
+    """
     rooms = constants.ROOMS
 
     curr_room = game_state['current_room']
@@ -41,6 +72,18 @@ def move_player(game_state, direction):
         print("Нельзя пойти в этом направлении.")
 
 def take_item(game_state, item_name):
+    """
+    Вызывает или поднятие в данной комнате предмета и включение его в инвентарь
+    игрока, или сообщение о том, что предмета нет. Сундук с сокровищами поднять
+    невозможно.
+
+    Args:
+        game_state (dict): данные о состоянии игрока на данный момент.
+        item_name (str): название предмета, который игрок хочет взять.
+
+    Returns:
+        None: результат выполнения не возвращается из функции.
+    """
     rooms = constants.ROOMS
 
     curr_room = game_state['current_room']
@@ -56,6 +99,18 @@ def take_item(game_state, item_name):
         print("Такого предмета здесь нет.")
 
 def use_item(game_state, item_name):
+    """
+    Позволяет игроку использовать предмет по определённому назначению, в
+    некоторых случаях выводит сообщение о том, что игрок не может использовать
+    данный предмет.
+
+    Args:
+        game_state (dict): данные о состоянии игрока на данный момент.
+        item_name (str): название предмета, который игрок хочет использовать.
+
+    Returns:
+        None: результат выполнения не возвращается из функции.
+    """
     if item_name in game_state['player_inventory']:
         match item_name:
             case 'torch':
