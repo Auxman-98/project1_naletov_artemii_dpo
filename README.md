@@ -18,6 +18,9 @@
 - Для запуска игры введите команду `make project`
 - Если не знаете, с чего начать, введите команду `help`
 
+## Пример прохождения игры
+![](https://github.com/Auxman-98/project1_naletov_artemii_dpo/blob/main/labyrinth_demo.gif)
+
 ## Вспомогательные ссылки
 1. [Git](https://git-scm.com/)
 2. [Основы Linux от создателя Gentoo. Часть 2 (2/5): Назначения папок, поиск файлов](https://habr.com/ru/articles/105495/)
