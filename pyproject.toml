@@ -1,7 +1,7 @@
 [project]
 name = "project1-naletov-artemii-dpo"
-version = "0.3.0"
-description = ""
+version = "0.3.1"
+description = "Консольная игра приключенческого жанра, разработанная на чистом Python в учебных целях"
 authors = [
     {name = "Artyom Nalyotov",email = "whalewander@yandex.ru"}
 ]
